@@ -28,29 +28,29 @@ my $ProgDir = $1;                         # name of directory where program live
 
 my $cwd = getcwd();  # current working directory
 my $cfgdir;
-my $utilroot = $ENV{'UTILROOT'};
 
 if ($ProgDir) {
     $cfgdir = $ProgDir;
 } else {
     $cfgdir = $cwd;
 }
+my $cimeroot = "$cfgdir/../../../cime";
 
 # The XML::Lite module is required to parse the XML configuration files.
 my $xmldir;
 if (-f "../Tools/XML/Lite.pm") {
     $xmldir = "../Tools";
-} elsif (-f "$cfgdir/../../../../cime/utils/perl5lib/XML/Lite.pm") {
-    $xmldir = "$cfgdir/../../../../cime/utils/perl5lib";
+} elsif (-f "$cimeroot/utils/perl5lib/XML/Lite.pm") {
+    $xmldir = "$cimeroot/utils/perl5lib";
 } else {
     die <<"EOF";
-** (generate_cice_decomp): Cannot find perl module \"XML/Lite.pm\"
+** (generate_cice_decomp): Cannot find perl module \"XML/Lite.pm\" 
 EOF
 }
 
 #-----------------------------------------------------------------------------------------------
 # Add $cfgdir/perl5lib to the list of paths that Perl searches for modules
-my @dirs = ( $cfgdir, "$cfgdir/perl5lib", "$cfgdir/../../../../cime/utils/perl5lib", "$utilroot/Tools/perl5lib" );
+my @dirs = ( $cfgdir, "$cfgdir/perl5lib", "$cimeroot/utils/perl5lib" );
 unshift @INC, @dirs;
 require XML::Lite;
 
