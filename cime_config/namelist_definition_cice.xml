@@ -199,7 +199,7 @@
       Initial year.
     </desc>
     <values>
-      <value>1</value>
+      <value>0</value>
       <value cice_mode="prescribed">0</value>
     </values>
   </entry>
@@ -245,7 +245,7 @@
       frequency of restart output (once per 1,h,d,m,y)
     </desc>
     <values>
-      <value>x</value>
+      <value>y</value>
     </values>
   </entry>
 
