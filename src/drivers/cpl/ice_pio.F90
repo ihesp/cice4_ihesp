@@ -25,7 +25,7 @@ module ice_pio
   use ice_communicate
   use ice_domain, only : nblocks, blocks_ice
   use ice_domain_size
-  use ice_fileunits  
+  use ice_fileunits
   use ice_exit
   use pio
 
@@ -68,10 +68,10 @@ contains
 !
 ! !IROUTINE: ice_pio_init - initialize io for input or output
 !
-! !INTERFACE: 
+! !INTERFACE:
    subroutine ice_pio_init(mode, filename, File, clobber, cdf64)
      use shr_pio_mod, only: shr_pio_getiosys, shr_pio_getiotype
-     
+
 !
 ! !DESCRIPTION:
 !    Initialize the io subsystem
@@ -107,21 +107,21 @@ contains
    pio_iotype =  shr_pio_getiotype(inst_name)
 
    if (present(mode) .and. present(filename) .and. present(File)) then
-      
+
       if (trim(mode) == 'write') then
          lclobber = .false.
          if (present(clobber)) lclobber=clobber
-         
+
          lcdf64 = .false.
          if (present(cdf64)) lcdf64=cdf64
-         
+
          if (File%fh<0) then
             ! filename not open
             inquire(file=trim(filename),exist=exists)
             if (exists) then
                if (lclobber) then
                   nmode = pio_clobber
-                  if (lcdf64) nmode = ior(nmode,PIO_64BIT_OFFSET)
+                  if (lcdf64) nmode = ior(nmode,PIO_64BIT_DATA)
                   status = pio_createfile(ice_pio_subsystem, File, pio_iotype, trim(filename), nmode)
                   if (my_task == master_task) then
                      write(nu_diag,*) subname,' create file ',trim(filename)
@@ -134,7 +134,7 @@ contains
                endif
             else
                nmode = pio_noclobber
-               if (lcdf64) nmode = ior(nmode,PIO_64BIT_OFFSET)
+               if (lcdf64) nmode = ior(nmode,PIO_64BIT_DATA)
                status = pio_createfile(ice_pio_subsystem, File, pio_iotype, trim(filename), nmode)
                if (my_task == master_task) then
                   write(nu_diag,*) subname,' create file ',trim(filename)
@@ -144,7 +144,7 @@ contains
             ! filename is already open, just return
          endif
       end if
-      
+
       if (trim(mode) == 'read') then
          inquire(file=trim(filename),exist=exists)
          if (exists) then
@@ -170,7 +170,7 @@ contains
       integer (kind=int_kind) :: &
           iblk,ilo,ihi,jlo,jhi,lon,lat,i,j,n,k
 
-      type(block) :: this_block 
+      type(block) :: this_block
 
       integer(kind=pio_offset_kind), pointer :: dof2d(:)
 
@@ -178,12 +178,12 @@ contains
 
       n=0
       do iblk = 1, nblocks
-         this_block = get_block(blocks_ice(iblk),iblk)         
+         this_block = get_block(blocks_ice(iblk),iblk)
          ilo = this_block%ilo
          ihi = this_block%ihi
          jlo = this_block%jlo
          jhi = this_block%jhi
-         
+
          do j=1,ny_block
          do i=1,nx_block
             n = n+1
@@ -204,7 +204,7 @@ contains
            dof2d, iodesc)
 
       deallocate(dof2d)
- 
+
     end subroutine ice_pio_initdecomp_2d
 
 !================================================================================
@@ -215,9 +215,9 @@ contains
       type(io_desc_t), intent(out) :: iodesc
 
       integer (kind=int_kind) :: &
-          iblk,ilo,ihi,jlo,jhi,lon,lat,i,j,n,k 
+          iblk,ilo,ihi,jlo,jhi,lon,lat,i,j,n,k
 
-      type(block) :: this_block 
+      type(block) :: this_block
 
       integer(kind=pio_offset_kind), pointer :: dof3d(:)
 
@@ -225,12 +225,12 @@ contains
 
       n=0
       do iblk = 1, nblocks
-         this_block = get_block(blocks_ice(iblk),iblk)         
+         this_block = get_block(blocks_ice(iblk),iblk)
          ilo = this_block%ilo
          ihi = this_block%ihi
          jlo = this_block%jlo
          jhi = this_block%jhi
-         
+
          do k=1,ndim3
          do j=1,ny_block
          do i=1,nx_block
@@ -242,7 +242,7 @@ contains
             else
                lon = this_block%i_glob(i)
                lat = this_block%j_glob(j)
-               dof3d(n) = ((lat-1)*nx_global + lon) + (k-1)*nx_global*ny_global 
+               dof3d(n) = ((lat-1)*nx_global + lon) + (k-1)*nx_global*ny_global
             endif
          enddo !i
          enddo !j
@@ -265,9 +265,9 @@ contains
       type(io_desc_t), intent(out) :: iodesc
 
       integer (kind=int_kind) :: &
-          iblk,ilo,ihi,jlo,jhi,lon,lat,i,j,n,k 
+          iblk,ilo,ihi,jlo,jhi,lon,lat,i,j,n,k
 
-      type(block) :: this_block 
+      type(block) :: this_block
 
       integer(kind=pio_offset_kind), pointer :: dof3d(:)
 
@@ -275,12 +275,12 @@ contains
 
       n=0
       do iblk = 1, nblocks
-         this_block = get_block(blocks_ice(iblk),iblk)         
+         this_block = get_block(blocks_ice(iblk),iblk)
          ilo = this_block%ilo
          ihi = this_block%ihi
          jlo = this_block%jlo
          jhi = this_block%jhi
-         
+
          do j=1,ny_block
          do i=1,nx_block
          do k=1,ndim3

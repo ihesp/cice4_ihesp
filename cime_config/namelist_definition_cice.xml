@@ -72,8 +72,8 @@
       <value hgrid='gx3v7'>$DIN_LOC_ROOT/ice/cice/b40.t31x3.20th.cice.r.2006-01-01-00000.nc</value>
       <value hgrid='gx1v6'>$DIN_LOC_ROOT/ice/cice/b.e15.B1850G.f09_g16.pi_control.25.cice.r.0041-01-01-00000.nc</value>
       <value hgrid='gx1v7'>$DIN_LOC_ROOT/ice/cice/b.e15.B1850G.f09_g16.pi_control.25.cice.r.0041-01-01-00000.nc</value>
-      <value hgrid='tx0.1v2'>$DIN_LOC_ROOT/ice/cice/g.e11.G.T62_t12.002.cice.r.0016-01-01-00000.nc</value>
-      <value hgrid='tx0.1v3'>$DIN_LOC_ROOT/ice/cice/g.e11.G.T62_t12.002.cice.r.0016-01-01-00000.nc</value>
+      <value hgrid='tx0.1v2'>$DIN_LOC_ROOT/ice/cice/g.e12.G.T62_t12.003.cice.r.0016-01-01-00000.nc</value>
+      <value hgrid='tx0.1v3'>$DIN_LOC_ROOT/ice/cice/g.e12.G.T62_t12.003.cice.r.0016-01-01-00000.nc</value>
       <value hgrid='ar9v3'>$DIN_LOC_ROOT/ice/cice/cice5ic/r26RBRCICE5g0.cice.r.1990-09-01-00000.nc</value>
       <value hgrid='ar9v4'>$DIN_LOC_ROOT/ice/cice/cice5ic/r26RBRCICE5g0.cice.r.1990-09-01-00000.nc</value>
     </values>
@@ -88,6 +88,16 @@
     </desc>
     <values>
       <value>./rpointer.ice</value>
+    </values>
+  </entry>
+  <entry id="xndt_dyn">
+    <type>real</type>
+    <category>setup</category>
+    <group>setup_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>2.0</value>
     </values>
   </entry>
 
@@ -115,7 +125,7 @@
       <value>pio</value>
     </values>
   </entry>
-
+<!--
   <entry id="restart_ext">
     <type>logical</type>
     <category>setup</category>
@@ -127,7 +137,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+-->
   <entry id="history_file">
     <type>char</type>
     <category>setup</category>
@@ -139,7 +149,7 @@
       <value>unknown</value>
     </values>
   </entry>
-
+<!--
   <entry id="history_precision">
     <type>integer</type>
     <category>setup</category>
@@ -151,7 +161,7 @@
       <value>4</value>
     </values>
   </entry>
-
+-->
   <!-- <entry id="runtype" modify_via_xml="RUN_TYPE"> -->
   <!--   <type>char</type> -->
   <!--   <category>setup</category> -->
@@ -193,7 +203,7 @@
       <value cice_mode="prescribed">0</value>
     </values>
   </entry>
-
+<!--
   <entry id="ndtd">
     <type>integer</type>
     <category>setup</category>
@@ -207,7 +217,7 @@
       <value hgrid="tx0.1v3">3</value>
     </values>
   </entry>
-
+-->
   <!-- =========================== -->
   <!-- History output -->
   <!-- =========================== -->
@@ -223,6 +233,7 @@
       <value>m,x,x,x,x</value>
       <value hgrid="ar9v3">m,d,h,x,x</value>
       <value hgrid="ar9v4">m,d,h,x,x</value>
+      <value hgrid="tx0.1v2">m,x,x,x,x</value>
     </values>
   </entry>
 
@@ -246,7 +257,7 @@
       frequency of history output (10 = once per 10 h,d,m,y)
     </desc>
     <values>
-      <value>1,0,0,0,0</value>
+      <value>1,1,1,1,1</value>
     </values>
   </entry>
 
@@ -313,7 +324,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+<!--
   <entry id="bfbflag" modify_via_xml="BFBFLAG">
     <type>logical</type>
     <category>setup</category>
@@ -325,7 +336,7 @@
       <value>$BFBFLAG</value>
     </values>
   </entry>
-
+-->
   <entry id="lonpnt">
     <type>real(2)</type>
     <category>setup</category>
@@ -437,7 +448,7 @@
       <value hgrid="gx1v7">$DIN_LOC_ROOT/ocn/pop/gx1v7/grid/topography_20161215.ieeei4</value>
       <value hgrid="tx0.66v1">$DIN_LOC_ROOT/ocn/mom/tx0.66v1/grid/topography_20180604.ieeei4</value>
       <value hgrid="gx3v7">$DIN_LOC_ROOT/ocn/pop/gx3v7/grid/topography_20100105.ieeei4</value>
-      <value hgrid="tx0.1v2">$DIN_LOC_ROOT/ocn/pop/tx0.1v2/grid/topography_200709.ieeei4</value>
+      <value hgrid="tx0.1v2">$DIN_LOC_ROOT/ocn/pop/tx0.1v2/grid/topography_km62_201209.ieeei4</value>
       <value hgrid="tx0.1v3">$DIN_LOC_ROOT/ocn/pop/tx0.1v3/grid/topography_20170718.ieeei4</value>
       <value hgrid="tx1v1">$DIN_LOC_ROOT/ocn/pop/tx1v1/grid/topography_20050510.ieeei4</value>
       <value hgrid="ar9v3">$DIN_LOC_ROOT/ocn/pop/ar9v3/grid/kmt.ar9v3.ocn.ChanBarrier.20100622.ieeei4</value>
@@ -549,9 +560,21 @@
   <entry id="maskhalo_dyn">
     <type>logical</type>
     <category>decomp</category>
-    <group>domain_nml</group>
+    <group>ice_nml</group>
     <desc>
       turn on masked halos in subcycling
+    </desc>
+    <values>
+      <value>.true.</value>
+    </values>
+  </entry>
+
+  <entry id="maskhalo_stress">
+    <type>logical</type>
+    <category>decomp</category>
+    <group>ice_nml</group>
+    <desc>
+      turn on masked halos in stress
     </desc>
     <values>
       <value>.true.</value>
@@ -561,7 +584,7 @@
   <entry id="maskhalo_remap">
     <type>logical</type>
     <category>decomp</category>
-    <group>domain_nml</group>
+    <group>ice_nml</group>
     <desc>
       turn on masked halos in tracer halo update in remap
     </desc>
@@ -573,7 +596,7 @@
   <entry id="maskhalo_bound">
     <type>logical</type>
     <category>decomp</category>
-    <group>domain_nml</group>
+    <group>ice_nml</group>
     <desc>
       turn on masked halos in state bound
     </desc>
@@ -670,7 +693,7 @@
     </values>
   </entry>
 
-  <entry id="tr_pond_cesm">
+  <entry id="tr_pond">
     <type>logical</type>
     <category>tracers</category>
     <group>tracer_nml</group>
@@ -686,7 +709,7 @@
     </values>
   </entry>
 
-  <entry id="restart_pond_cesm">
+  <entry id="restart_pond">
     <type>logical</type>
     <category>tracers</category>
     <group>tracer_nml</group>
@@ -697,7 +720,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+<!--
   <entry id="tr_pond_topo">
     <type>logical</type>
     <category>tracers</category>
@@ -751,7 +774,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+-->
   <entry id="tr_aero">
     <type>logical</type>
     <category>tracers</category>
@@ -776,7 +799,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+<!--
   <entry id="tr_iso">
     <type>logical</type>
     <category>tracers</category>
@@ -801,7 +824,7 @@
       <value>.false.</value>
     </values>
   </entry>
-
+-->
   <!-- =========================== -->
   <!-- Thermo_nml parameterizations -->
   <!-- =========================== -->
@@ -809,7 +832,7 @@
   <entry id="kitd">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>thermo_nml</group>
+    <group>ice_nml</group>
     <desc>
       type of itd conversions (0 = delta, 1 = linear)
     </desc>
@@ -931,7 +954,7 @@
   <entry id="kdyn">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       type of dynamics (0=off, 1=evp, 2=eap)
     </desc>
@@ -942,6 +965,30 @@
       <value  cice_mode='thermo_only'>0</value>
       <value  hgrid="ar9v3">2</value>
       <value  hgrid="ar9v4">2</value>
+    </values>
+  </entry>
+
+  <entry id="evp_damping">
+    <type>logical</type>
+    <category>parameterizations</category>
+    <group>ice_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value hgrid="ar9v3">.false.</value>
+      <value hgrid="ar9v4">.false.</value>
+      <value>.false.</value>
+    </values>
+  </entry>
+
+  <entry id="splitcomm_dyn">
+    <type>logical</type>
+    <category>parameterizations</category>
+    <group>ice_nml</group>
+    <desc>
+    </desc>
+    <values>
+      <value>.false.</value>
     </values>
   </entry>
 
@@ -962,7 +1009,7 @@
   <entry id="ndte">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       subcycles per dynamics timestep
     </desc>
@@ -974,7 +1021,7 @@
   <entry id="advection">
     <type>char</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       incremental remapping transport scheme, remap or upwind
     </desc>
@@ -987,7 +1034,7 @@
   <entry id="kstrength">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       ice strength formulation (0=Hibler 79, 1=Rothrock 75)
     </desc>
@@ -1002,7 +1049,7 @@
   <entry id="krdg_partic">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       ridging participation function (0=Thorndike et al 75, 1=new participation )
     </desc>
@@ -1015,7 +1062,7 @@
   <entry id="krdg_redist">
     <type>integer</type>
     <category>parameterizations</category>
-    <group>dynamics_nml</group>
+    <group>ice_nml</group>
     <desc>
       ridging distribution function (0=old Hibler 80, 1=new redistribution)
     </desc>
@@ -1060,7 +1107,7 @@
   <entry id="shortwave">
     <type>char</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       shortwave method, 'default' ('ccsm3') or 'dEdd'
     </desc>
@@ -1073,7 +1120,7 @@
   <entry id="albedo_type">
     <type>char</type>
     <category>albedos</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       albedo parameterization, 'default' ('ccsm3') or 'constant'
     </desc>
@@ -1086,7 +1133,7 @@
   <entry id="albicev">
     <type>real</type>
     <category>albedos</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       visible ice albedo for h gt ahmax
     </desc>
@@ -1096,10 +1143,23 @@
     </values>
   </entry>
 
+  <entry id="fsnowrdg">
+    <type>real</type>
+    <category>albedos</category>
+    <group>ice_nml</group>
+    <desc>
+      snow fraction that survives in ridging
+    </desc>
+    <values>
+      <value> 0.50 </value>
+      <value hgrid="tx0.1v2">1.00</value>
+    </values>
+  </entry>
+
   <entry id="albicei">
     <type>real</type>
     <category>albedos</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       near-ir ice albedo for h gt ahmax
     </desc>
@@ -1112,7 +1172,7 @@
   <entry id="albsnowv">
     <type>real</type>
     <category>albedos</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       cold snow albedo, visible
     </desc>
@@ -1125,7 +1185,7 @@
   <entry id="albsnowi">
     <type>real</type>
     <category>albedos</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       cold snow albedo, near IR
     </desc>
@@ -1150,31 +1210,31 @@
   <entry id="r_ice">
     <type>real</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       tuning parameter for delta-eddington shortwave for sea ice albedo
     </desc>
     <values>
-      <value>0.0</value>
+      <value>1.5</value>
     </values>
   </entry>
 
   <entry id="r_pnd">
     <type>real</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       tuning parameter for delta-eddington shortwave for ponded sea ice albedo
     </desc>
     <values>
-      <value>0.0</value>
+      <value>1.5</value>
     </values>
   </entry>
 
   <entry id="r_snw">
     <type>real</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       tuning parameter for delta-eddington shortwave for broadband snow albedo
     </desc>
@@ -1188,10 +1248,10 @@
     </values>
   </entry>
 
-  <entry id="dt_mlt">
+  <entry id="dt_mlt_in">
     <type>real</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       melt onset temperature tunable parameter for dEdd albedo
     </desc>
@@ -1205,10 +1265,10 @@
     </values>
   </entry>
 
-  <entry id="rsnw_mlt">
+  <entry id="rsnw_melt_in">
     <type>real</type>
     <category>swrad</category>
-    <group>shortwave_nml</group>
+    <group>ice_nml</group>
     <desc>
       maximum melting snow grain radius tunable parameter for dEdd albedo
     </desc>
@@ -1221,7 +1281,7 @@
       <value cam5='.true.'> 1000. </value>
     </values>
   </entry>
-
+<!--
   <entry id="kalg">
     <type>real</type>
     <category>swrad</category>
@@ -1233,7 +1293,7 @@
       <value>0.0</value>
     </values>
   </entry>
-
+-->
   <!-- =========================== -->
   <!-- ponds_nml -->
   <!-- =========================== -->
@@ -2192,7 +2252,7 @@
       <value cice_mode='prescribed'>.false.</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_ncat">
     <type>logical</type>
     <category>history</category>
@@ -2242,7 +2302,7 @@
       <value cice_mode='prescribed'>.false.</value>
     </values>
   </entry>
-
+-->
   <entry id="f_hi">
     <type>char</type>
     <category>history</category>
@@ -2268,7 +2328,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_snowfrac">
     <type>char</type>
     <category>history</category>
@@ -2279,7 +2339,7 @@
       <value>mxxxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_tsfc">
     <type>char</type>
     <category>history</category>
@@ -2333,7 +2393,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_uatm">
     <type>char</type>
     <category>history</category>
@@ -2361,7 +2421,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_fswdn">
     <type>char</type>
     <category>history</category>
@@ -2506,7 +2566,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_sice">
     <type>char</type>
     <category>history</category>
@@ -2519,7 +2579,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_frzmlt">
     <type>char</type>
     <category>history</category>
@@ -2585,7 +2645,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_albsni">
     <type>char</type>
     <category>history</category>
@@ -2598,7 +2658,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_alvdr">
     <type>char</type>
     <category>history</category>
@@ -2663,7 +2723,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_alidr_ai">
     <type>char</type>
     <category>history</category>
@@ -2702,7 +2762,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_albice">
     <type>char</type>
     <category>history</category>
@@ -2905,7 +2965,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
@@ -2918,7 +2978,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -2938,7 +2998,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_dsnow">
     <type>char</type>
     <category>history</category>
@@ -2951,7 +3011,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_meltt">
     <type>char</type>
     <category>history</category>
@@ -2959,7 +3019,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -2986,7 +3046,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3000,7 +3060,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3028,7 +3088,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3056,7 +3116,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3084,7 +3144,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3152,7 +3212,7 @@
     <desc>
     </desc>
     <values>
-      <value>mxxxx</value>
+      <value>xxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3166,7 +3226,7 @@
     <desc>
     </desc>
     <values>
-      <value>mxxxx</value>
+      <value>xxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3334,7 +3394,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3348,7 +3408,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3362,7 +3422,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3376,7 +3436,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3431,7 +3491,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mdxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
       <value cice_mode='prescribed'>xxxxx</value  >
     </values>
@@ -3444,7 +3504,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mdxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
     </values>
@@ -3457,7 +3517,7 @@
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mdxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
     </values>
@@ -3470,7 +3530,7 @@
     <desc>
     </desc>
     <values>
-      <value>mdhxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -3484,13 +3544,13 @@
     <desc>
     </desc>
     <values>
-      <value>mdhxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_vsnon">
     <type>char</type>
     <category>history</category>
@@ -3560,7 +3620,7 @@
       <value hgrid="ar9v4">mdhxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_trsig">
     <type>char</type>
     <category>history</category>
@@ -3678,7 +3738,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_fsensn_ai">
     <type>char</type>
     <category>history</category>
@@ -3838,7 +3898,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+-->
   <entry id="f_yieldstress11">
     <type>char</type>
     <category>history</category>
@@ -3877,7 +3937,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_cmip">
     <type>char</type>
     <category>history</category>
@@ -3888,7 +3948,7 @@
       <value>xxxxx</value>
     </values>
   </entry>
-
+-->
   <!-- =========================== -->
   <!-- icefields_pond_nml -->
   <!-- =========================== -->
@@ -3896,11 +3956,11 @@
   <entry id="f_apondn">
     <type>char</type>
     <category>history</category>
-    <group>icefields_pond_nml</group>
+    <group>icefields_nml</group>
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -4132,11 +4192,11 @@
   <entry id="f_opening">
     <type>char</type>
     <category>history</category>
-    <group>icefields_mechred_nml</group>
+    <group>icefields_nml</group>
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
       <value hgrid="ar9v3">mxxxx</value>
       <value hgrid="ar9v4">mdhxx</value>
@@ -4328,11 +4388,11 @@
   <entry id="f_faero_atm">
     <type>char</type>
     <category>history</category>
-    <group>icefields_bgc_nml</group>
+    <group>icefields_nml</group>
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
@@ -4340,11 +4400,11 @@
   <entry id="f_faero_ocn">
     <type>char</type>
     <category>history</category>
-    <group>icefields_bgc_nml</group>
+    <group>icefields_nml</group>
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
@@ -4376,11 +4436,11 @@
   <entry id="f_aero">
     <type>char</type>
     <category>history</category>
-    <group>icefields_bgc_nml</group>
+    <group>icefields_nml</group>
     <desc>
     </desc>
     <values>
-      <value>xxxxx</value>
+      <value>mxxxx</value>
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
