@@ -2632,7 +2632,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_fswint_ai">
     <type>char</type>
     <category>history</category>
@@ -2645,7 +2645,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-<!--
+
   <entry id="f_albsni">
     <type>char</type>
     <category>history</category>
@@ -2710,7 +2710,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-
+<!--
   <entry id="f_alvdr_ai">
     <type>char</type>
     <category>history</category>
@@ -2723,7 +2723,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-<!--
+
   <entry id="f_alidr_ai">
     <type>char</type>
     <category>history</category>
@@ -3898,7 +3898,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
--->
+
   <entry id="f_yieldstress11">
     <type>char</type>
     <category>history</category>
@@ -3937,7 +3937,7 @@
       <value cice_mode='prescribed'>xxxxx</value>
     </values>
   </entry>
-<!--
+
   <entry id="f_cmip">
     <type>char</type>
     <category>history</category>
