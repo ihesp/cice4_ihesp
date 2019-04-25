@@ -97,7 +97,8 @@
     <desc>
     </desc>
     <values>
-      <value>2.0</value>
+      <value>1.0</value>
+      <value hgrid="tx0.1v2">2.0</value>
     </values>
   </entry>
 
@@ -1215,7 +1216,8 @@
       tuning parameter for delta-eddington shortwave for sea ice albedo
     </desc>
     <values>
-      <value>1.5</value>
+      <value> 0.00</value>
+      <value hgrid="tx0.1v2">1.5</value>
     </values>
   </entry>
 
@@ -1227,7 +1229,8 @@
       tuning parameter for delta-eddington shortwave for ponded sea ice albedo
     </desc>
     <values>
-      <value>1.5</value>
+      <value> 0.00</value>
+      <value hgrid="tx0.1v2">1.5</value>
     </values>
   </entry>
 
