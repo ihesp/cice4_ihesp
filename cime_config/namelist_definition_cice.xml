@@ -70,7 +70,11 @@
     <values>
       <value>UNSET</value>
       <value hgrid='gx3v7'>$DIN_LOC_ROOT/ice/cice/b40.t31x3.20th.cice.r.2006-01-01-00000.nc</value>
+<!--
       <value hgrid='gx1v6'>$DIN_LOC_ROOT/ice/cice/b.e15.B1850G.f09_g16.pi_control.25.cice.r.0041-01-01-00000.nc</value>
+-->
+      <value hgrid='gx1v6'>$DIN_LOC_ROOT/ice/cice/iced.0001-01-01.gx1v6_20080212</value>
+
       <value hgrid='gx1v7'>$DIN_LOC_ROOT/ice/cice/b.e15.B1850G.f09_g16.pi_control.25.cice.r.0041-01-01-00000.nc</value>
       <value hgrid='tx0.1v2'>$DIN_LOC_ROOT/ice/cice/g.e12.G.T62_t12.003.cice.r.0016-01-01-00000.nc</value>
       <value hgrid='tx0.1v3'>$DIN_LOC_ROOT/ice/cice/g.e12.G.T62_t12.003.cice.r.0016-01-01-00000.nc</value>
