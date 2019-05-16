@@ -4,7 +4,7 @@
 !
 ! !MODULE: ice_history_write - ice model history files writes using pio
 !
-! Output files: netCDF 
+! Output files: netCDF
 !
 ! !INTERFACE:
 !
@@ -51,6 +51,7 @@
 !
       use shr_mpi_mod
 !     use shr_mem_mod, only : shr_get_memusage
+      use ice_broadcast, only: broadcast_scalar
       use ice_gather_scatter
       use ice_domain_size
       use ice_constants
@@ -63,7 +64,7 @@
       use ice_domain, only: distrb_info
       use ice_itd, only: c_hi_range
       use ice_exit
-      use ice_pio	
+      use ice_pio
       use pio
       use shr_sys_mod, only : shr_sys_flush
 !
@@ -149,7 +150,7 @@
 
       if (my_task == master_task) then
          call construct_filename(ncfile(ns),'nc',ns)
-         
+
          ! add local directory path name to ncfile
          if (write_ic) then
             ncfile(ns) = trim(incond_dir)//ncfile(ns)
@@ -159,7 +160,7 @@
          filename = ncfile(ns)
       end if
       call broadcast_scalar(filename, master_task)
-      
+
       ! create file
       File%fh=-1
       call ice_pio_init(mode='write', filename=trim(filename), File=File, &
@@ -188,30 +189,30 @@
       if (hist_avg .and. histfreq(ns) /= '1') then
          status = pio_def_dim(File,'d2',2, boundid)
       endif
-      
+
       status = pio_def_dim(File,'ni',nx_global,imtid)
       status = pio_def_dim(File,'nj',ny_global,jmtid)
       status = pio_def_dim(File,'time',pio_unlimited,timid)
       status = pio_def_dim(File,'nvertices',nverts,nvertexid)
-     
+
       !-----------------------------------------------------------------
       ! define coordinate variables
       !-----------------------------------------------------------------
 
       status = pio_def_var(File,'time',pio_real,(/timid/),varid)
       status = pio_put_att(File,varid,'long_name','model time')
-      
+
       write(cdate,'(i8.8)') idate0
       write(title,'(a,a,a,a,a,a,a)') 'days since ', &
            cdate(1:4),'-',cdate(5:6),'-',cdate(7:8),' 00:00:00'
       status = pio_put_att(File,varid,'units',title)
-      
+
       if (days_per_year == 360) then
          status = pio_put_att(File,varid,'calendar','360_day')
       else
          status = pio_put_att(File,varid,'calendar','noleap')
       endif
-      
+
       if (hist_avg .and. histfreq(ns) /= '1') then
          status = pio_put_att(File,varid,'bounds','time_bounds')
       endif
@@ -315,7 +316,7 @@
       dimid3(1) = imtid
       dimid3(2) = jmtid
       dimid3(3) = timid
-      
+
       dimid2(1) = imtid
       dimid2(2) = jmtid
 
@@ -356,7 +357,7 @@
             status = pio_put_att(File, varid,'_FillValue',spval)
          endif
       enddo
-        
+
       ! Fields with dimensions (nverts,nx,ny)
       dimid_nverts(1) = nvertexid
       dimid_nverts(2) = imtid
@@ -371,7 +372,7 @@
                  pio_put_att(File, varid, 'units', var_nverts(i)%units)
          endif
       enddo
-      
+
       do n=1,num_avail_hist_fields
 
          if (avail_hist_fields(n)%vhistfreq == histfreq(ns).or.write_ic) then
@@ -417,7 +418,7 @@
             ! Need divu and shear as monthly means for CMIP/IPCC.
             if (histfreq(ns) == '1'     .or. .not. hist_avg      &
 !                .or. n==n_divu(ns)      .or. n==n_shear(ns)     &  ! snapshots
-                 .or. n==n_sig1(ns)      .or. n==n_sig2(ns)      & 
+                 .or. n==n_sig1(ns)      .or. n==n_sig2(ns)      &
                  .or. n==n_trsig(ns)                             &
                  .or. n==n_mlt_onset(ns) .or. n==n_frz_onset(ns) &
                  .or. n==n_hisnap(ns)    .or. n==n_aisnap(ns)    &
@@ -460,7 +461,11 @@
       status =  &
            pio_put_att(File,pio_global,'conventions',title)
 
-      call date_and_time(date=current_date, time=current_time)
+      if (my_task == master_task) then
+         call date_and_time(date=current_date, time=current_time)
+      endif
+      call broadcast_scalar(current_date, master_task)
+      call broadcast_scalar(current_time, master_task)
       write(start_time,1000) current_date(1:4), current_date(5:6), &
            current_date(7:8), current_time(1:2), &
            current_time(3:4)
@@ -481,7 +486,7 @@
 
       status = pio_inq_varid(File,'time',varid)
       status = pio_put_var(File,varid,ltime)
-      
+
       !-----------------------------------------------------------------
       ! write time_bounds info
       !-----------------------------------------------------------------
@@ -491,16 +496,16 @@
          time_bounds=(/time_beg(ns),time_end(ns)/)
          bnd_start=(/1,1/)
          bnd_length=(/2,1/)
-         status = pio_put_var(File,varid,start=bnd_start(:),count=bnd_length(:),ival=time_bounds) 
+         status = pio_put_var(File,varid,start=bnd_start(:),count=bnd_length(:),ival=time_bounds)
       endif
-      
+
       !-----------------------------------------------------------------
       ! write coordinate variables
       !-----------------------------------------------------------------
 
       do i = 1,ncoord
          call broadcast_scalar(coord_var(i)%short_name,master_task)
-         
+
          SELECT CASE (coord_var(i)%short_name)
          CASE ('TLON')
             work1(:,:,:) = tlon(:,:,:)
@@ -518,7 +523,7 @@
             work1(:,:,:) = ulat(:,:,:)
             work1 = work1*rad_to_deg
          END SELECT
-          
+
          status = pio_inq_varid(File, coord_var(i)%short_name, varid)
          call pio_write_darray(File, varid, iodesc2d, &
                                work1(:,:,1:nblocks), status, fillval=spval_dbl)
@@ -598,8 +603,8 @@
                   work3(ivertex,:,:,:) = latu_bounds(ivertex,:,:,:)
                enddo
             END SELECT
-            
-            status = pio_inq_varid(File, var_nverts(i)%short_name, varid) 
+
+            status = pio_inq_varid(File, var_nverts(i)%short_name, varid)
             call pio_write_darray(File, varid, iodesc3d, &
                                   work3(:,:,:,1:nblocks), status, fillval=spval_dbl)
          enddo
@@ -646,7 +651,7 @@
 !       write(nu_diag,105) 'icecdf: [before freedecomp] memory_write: memory:= ', &
 !    msize0,' MB (highwater) ',mrss0,' MB (usage)'
 !     endif
-      
+
 
   105  format( A, f10.2, A, f10.2, A)
 
@@ -743,7 +748,7 @@
         write (nu_hdr, *  ) 'Grid size:'
         write (nu_hdr, 998) '  ni',nx_global
         write (nu_hdr, 998) '  nj',ny_global
-   
+
         write (nu_hdr, *  ) 'Grid variables: (left column = nrec)'
         nrec = 1
         write (nu_hdr, 996) nrec,'tarea','area of T grid cells','m^2'
