@@ -1267,6 +1267,7 @@
       <value hgrid='gx3v7'> 2.00 </value>
       <value hgrid="ar9v3"> 1.00 </value>
       <value hgrid="ar9v4"> 1.00 </value>
+      <value hgrid="tx0.1v2">0.50</value>
       <value cam4='.true.'> 1.50 </value>
       <value cam5='.true.'> 1.00 </value>
     </values>
@@ -1284,6 +1285,7 @@
       <value hgrid='gx3v7'> 2000. </value>
       <value hgrid="ar9v3"> 1000. </value>
       <value hgrid="ar9v4"> 1000. </value>
+      <value hgrid="tx0.1v2">500.</value>
       <value cam4='.true.'> 1500. </value>
       <value cam5='.true.'> 1000. </value>
     </values>
