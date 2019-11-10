@@ -689,7 +689,7 @@ contains
             'ice_comp_mct: calling dumpfile for restart filename= ', fname
        endif
 
-       if (restart_format /= 'nc') then
+       if (restart_format == 'bin') then
 
           if (tr_pond) then
                n = index(fname,'cice.r') + 6
@@ -740,7 +740,7 @@ contains
 #else
        call ice_timer_start(timer_readwrite)
        call dumpfile(fname)
-       if (restart_format /= 'nc') then
+       if (restart_format == 'bin') then
           if (tr_aero) call write_restart_aero(filename_aero)
           if (tr_iage) call write_restart_age(filename_iage)
           if (tr_FY)   call write_restart_FY(filename_FY)
