@@ -26,8 +26,8 @@
       implicit none
       save
 
-      integer, parameter :: char_len  = 80, &
-                            char_len_long  = 256, &
+      integer, parameter :: char_len  = 256, &
+                            char_len_long  = 1024, &
                             log_kind  = kind(.true.), &
                             int_kind  = selected_int_kind(6), &
                             real_kind = selected_real_kind(6), &
