@@ -124,14 +124,14 @@ def _create_namelists(case, confdir, infile, nmlgen):
     # error checks for prescribed ice mode
     if cice_mode == 'prescribed':
         sstice_grid_filename = case.get_value('SSTICE_GRID_FILENAME')
-        sstice_data_filename = case.get_value('SSTICE_DATA_FILENAME')
+#        sstice_data_filename = case.get_values('SSTICE_DATA_FILENAME')
         sstice_year_align = case.get_value('SSTICE_YEAR_ALIGN')
         sstice_year_start = case.get_value('SSTICE_YEAR_START')
         sstice_year_end = case.get_value('SSTICE_YEAR_END')
         if sstice_grid_filename == 'UNSET':
             expect(False,  "%s must be set for cice prescribed mode" %sstice_grid_filename)
-        if sstice_data_filename == 'UNSET':
-            expect(False,  "%s must be set for cice prescribed mode" %sstice_data_filename)
+ #       if sstice_data_filename == 'UNSET':
+ #           expect(False,  "%s must be set for cice prescribed mode" %sstice_data_filename)
         if sstice_year_align == 'UNSET':
             expect(False,  "%s must be set for cice prescribed mode" %sstice_year_align)
         if sstice_year_start== 'UNSET':

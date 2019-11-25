@@ -1946,8 +1946,8 @@
     </values>
   </entry>
 
-  <entry id="stream_fldfilename" modify_via_xml="SSTICE_DATA_FILENAME">
-    <type>char</type>
+  <entry id="stream_fldfilename">
+    <type>char(100)</type>
     <category>icepresc</category>
     <group>ice_prescribed_nml</group>
     <desc>
