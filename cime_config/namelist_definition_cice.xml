@@ -1947,7 +1947,7 @@
   </entry>
 
   <entry id="stream_fldfilename">
-    <type>char(100)</type>
+    <type>char(150)</type>
     <category>icepresc</category>
     <group>ice_prescribed_nml</group>
     <desc>
